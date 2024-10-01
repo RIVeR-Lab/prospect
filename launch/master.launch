@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="use_spec" default="false"/>
+    <arg name="use_robot" default="false"/>
+    <arg name="use_stewart" default="false"/>
+    <arg name="use_camera" default="false"/>
+    <!-- Given end effector parameters, set rosparams defining Stewart Platform (all measurements in mm) -->
+    <node pkg="stewart_end_effector" type="set_params.py" name="setParams" output="screen">
+        <param name="s" value="100"/>
+        <param name="a" value="40.0"/>
+
+        <!-- The vector defining point 1 on the base platform -->
+        <param name="b1_x" value="-10.5"/>
+        <param name="b1_y" value="-63.96"/>
+        <param name="b1_z" value="0"/>
+
+        <!-- The vector defining point 1 on the top platform -->
+        <param name="p1_x" value="-7.5"/>
+        <param name="p1_y" value="-62.96"/>
+        <param name="p1_z" value="3"/>
+    </node>
+    <arg name="node_start_delay" default="1.0" />
+    <!-- Service to compute motor angles -->
+    <node pkg="stewart_end_effector" type="compute_motor_angles.py" name="computeMotorAngles" output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/>
+    <!-- Connections to servos -->
+    <node pkg="stewart_end_effector" type="move_to_motor_angles.py" name="moveToMotorAngles" output="screen"/>
+    
+
+    <arg name="address" default="10.75.12.205" />w
+</launch>

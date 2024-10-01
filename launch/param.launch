@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Given end effector parameters, set rosparams defining Stewart Platform (all measurements in mm) -->
+    <node pkg="stewart_end_effector" type="set_params.py" name="setParams" output="screen">
+        <param name="s" value="100"/>
+        <param name="a" value="40.0"/>
+
+        <!-- The vector defining point 1 on the base platform -->
+        <param name="b1_x" value="-10.5"/>
+        <param name="b1_y" value="-63.96"/>
+        <param name="b1_z" value="0"/>
+
+        <!-- The vector defining point 1 on the top platform -->
+        <param name="p1_x" value="-7.5"/>
+        <param name="p1_y" value="-62.96"/>
+        <param name="p1_z" value="3"/>
+    </node>
+    
+</launch>
